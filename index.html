@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="moment-with-locales.js"></script>
+    <script src="moment-data.js"></script>
+    <script src="index.js"></script>
+</head>
+<body>
+<div id="clockapp">
+<div></div>
+<div style="float:right"><img onclick="ShowSettingsDiv()" src="http://daiis-2012sp05/_layouts/15/images/settingsicon.png" alt="Clock WebPart Settings"/></div>
+</div>
+<div id="settings">
+
+    <button id="complete">Complete</button>
+</div>
+<script type="text/javascript">
+(function(){
+
+    document.getElementById("settings").hide();
+    function ShowSettingsDiv(){
+        document.getElementById("settings").hide();
+        console.log("This is awesome dude!");
+    };
+})();
+</script>
+</body>
+</html>
