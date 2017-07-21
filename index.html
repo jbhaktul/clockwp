@@ -1,27 +1,105 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="jquery-3.2.1.min.js"></script>
     <script src="moment-with-locales.js"></script>
     <script src="moment-data.js"></script>
     <script src="index.js"></script>
 </head>
 <body>
-<div id="clockapp">
-<div></div>
-<div style="float:right"><img onclick="ShowSettingsDiv()" src="http://daiis-2012sp05/_layouts/15/images/settingsicon.png" alt="Clock WebPart Settings"/></div>
+<div>
+<div id="wpclock" style="float:left">
+<div id="timezone1block"></div>
+<div id="timezone2block"></div>
+<div id="timezone3block"></div>
+<div id="timezone4block"></div>
+<div id="timezone5block"></div>
+</div>
+<div style="float:right"><img id="wpSettings" src="http://devserver/_layouts/15/images/settingsicon.png" alt="Clock WebPart Settings"/></div>
 </div>
 <div id="settings">
+<form>
+<h3>Choose your time zones:</h3>
 
-    <button id="complete">Complete</button>
+<p>Time zone 1: <select id="timezone1">
+    <option value="Pacific/Galapagos" selected>Hawaii</option>
+    <option value="America/New_York">Washington D.C.</option>
+    <option value="Europe/Berlin">Germany</option>
+    <option value="Asia/Baghdad">Iraq</option>
+    <option value="Asia/Kabul">Afghanistan</option>
+    </select>
+</p><br/>
+<p>Time zone 2: <select id="timezone2">
+    <option value="Pacific/Galapagos">Hawaii</option>
+    <option value="America/New_York" selected>Washington D.C.</option>
+    <option value="Europe/Berlin">Germany</option>
+    <option value="Asia/Baghdad">Iraq</option>
+    <option value="Asia/Kabul">Afghanistan</option>
+    </select>
+</p><br/>
+<p>Time zone 3: <select id="timezone3">
+    <option value="Pacific/Galapagos">Hawaii</option>
+    <option value="America/New_York">Washington D.C.</option>
+    <option value="Europe/Berlin" selected>Germany</option>
+    <option value="Asia/Baghdad">Iraq</option>
+    <option value="Asia/Kabul">Afghanistan</option>
+    </select>
+</p><br/>
+<p>Time zone 4: <select id="timezone4">
+    <option value="Pacific/Galapagos">Hawaii</option>
+    <option value="America/New_York">Washington D.C.</option>
+    <option value="Europe/Berlin">Germany</option>
+    <option value="Asia/Baghdad" selected>Iraq</option>
+    <option value="Asia/Kabul">Afghanistan</option>
+    </select>
+</p><br/>
+<p>Time zone 5: <select id="timezone5">
+    <option value="Pacific/Galapagos">Hawaii</option>
+    <option value="America/New_York">Washington D.C.</option>
+    <option value="Europe/Berlin">Germany</option>
+    <option value="Asia/Baghdad">Iraq</option>
+    <option value="Asia/Kabul" selected>Afghanistan</option>
+    </select>
+</p><br/>
+    <button id="completeSettings">Update</button>
+</form>
 </div>
 <script type="text/javascript">
 (function(){
+$(document).ready(function(){
 
-    document.getElementById("settings").hide();
-    function ShowSettingsDiv(){
-        document.getElementById("settings").hide();
+    var timezone1;
+    var timezone2;
+    var timezone3;
+    var timezone4;
+    var timezone5;
+    if (timezone1 == null){
+        timezone1 = "Pacific/Galapagos";
+    }
+    setInterval(function(){
+        $("#timezone1block").html("Hawaii: " + moment(Date.now()).tz(timezone1).format("MM-DD-YYYY HH:mm:ss"));
+    }, 1000)
+    console.log("timezone1: " + timezone1);
+
+    $("#wpclock").show();
+    $("#settings").hide();
+
+    $("#wpSettings").click(function(){
+        $("#wpclock").hide();
+        $("#settings").show();
         console.log("This is awesome dude!");
-    };
+    });
+
+    $("#completeSettings").click(function(){
+        timezone1 = $("#timezone1").val();
+        $("#timezone1block").html(moment(Date.now()).tz(timezone1).format("MM-DD-YYYY HH:mm:ss"));
+        console.log("timezone1 after complete settings: " + timezone1);
+        $("#settings").hide();
+        $("#wpclock").show();
+    });
+
+})
+
 })();
 </script>
 </body>
